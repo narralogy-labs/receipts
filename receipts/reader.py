@@ -5,9 +5,9 @@ import base64
 import json
 from pathlib import Path
 
-from openai import OpenAI
+from .openport_llm import token_factory_client
 
-client = OpenAI()
+client = token_factory_client()
 INBOX = Path(__file__).parent / "inbox"  # where the support desk saves attachments
 
 PROMPT = """Read this Fernhill Supply Co. store receipt and reply with JSON only, shaped like
@@ -22,7 +22,7 @@ Use null for anything the receipt doesn't show."""
 def read_receipt(receipt: str) -> dict:
     image = base64.b64encode((INBOX / receipt).read_bytes()).decode()
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="nvidia/Nemotron-3.5-Super-VL",  # was "gpt-4o-mini"
         messages=[{
             "role": "user",
             "content": [
