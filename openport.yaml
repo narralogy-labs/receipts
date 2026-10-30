@@ -1,0 +1,12 @@
+# Written by OpenPort: which model each LLM call uses after the port, and what it used before.
+openport: 0.1.0
+gate:
+  evals: evals/openport.evals.yaml
+  min_pass_rate: 0.9
+call_sites:
+- id: reader.read_receipt
+  file: receipts/reader.py
+  line: 24
+  status: ported
+  model: nvidia/Nemotron-3.5-Super-VL
+  was: gpt-4o-mini
